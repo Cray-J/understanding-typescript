@@ -145,3 +145,73 @@ let myself: {name: string, bankAccount: BankAccount, hobbies: string[]} = {
 
 myself.bankAccount.deposit(3000);
 console.log(myself);
+
+// Arrow Functions
+console.log("ARROW FUNCTIONS");
+const addNumbers = function(number1: number, number2: number): number {
+    return number1 + number2;
+};
+console.log(addNumbers(10, 3));
+
+const multiplyNumbers = (number1: number, number2: number) => {
+  return number1 * number2;
+};
+console.log(multiplyNumbers(10, 3));
+
+
+const greet = () => {
+    console.log("Hello!");
+};
+greet();
+
+const greetFriend = friendName => console.log("Hello " + friendName);
+greetFriend("Manu");
+
+// Default Parameters
+console.log("DEFAULT PARAMETERS");
+const countdown = (start: number = 10): void => {
+    console.log(start);
+    while (start > 0) {
+        start--;
+    }
+    console.log("Done!", start);
+};
+countdown(20);
+
+
+// Rest & Spread
+console.log("REST & SPREAD");
+const numbers = [1, 10, 99, -5]; // array of numbers
+console.log(Math.max(33, 99, 10, -3));  // List of numbers
+console.log(Math.max(...numbers));  // Spread operator: Turns an array into a list of values. Spread operator when used in function call
+
+function makeArray(name: string, ...args: number[]) { // Rest operator: When used as parameter. Fetches all parameters and makes an array
+    return args;
+}
+console.log(makeArray("Kris",1, 2, 6));
+
+// Destructuring
+console.log("DESTRUCTURING");
+const myHobbies = ["Cooking", "Sports"];
+// const hobby1 = myHobbies[0];
+// const hobby2 = myHobbies[1];
+// console.log(hobby1, hobby2);
+const [hobby1, hobby2] = myHobbies;
+console.log(hobby1, hobby2);
+
+
+const userData1 = { userName: "Kris", age: 31 };
+// const userName = userData1.userName;
+// const age = userData1.age;
+// console.log(userName, age);
+// const {userName, age} = userData1; // valid
+const {userName: myName1, age: myAge1} = userData1; // assigning aliases
+console.log(myName1, myAge1);
+
+
+// Template Literals - extended strings (strings with more features)
+const userName = "Kris";
+const greeting = ` This is a heading!
+I'm ${userName}.
+This is cool!`;
+console.log(greeting);
