@@ -4,9 +4,10 @@
         "target": "es5",
         "noImplicitAny": false, // warnings on any-assignment
         "sourceMap": true, // allows .ts-files viewable in browser
-        "strictNullChecks": true,
+        //"strictNullChecks": true,
         "noEmitOnError": true, // does not compile to js if errors
-        "noUnusedParameters": false // checks that all parameters are used
+        "noUnusedParameters": false, // checks that all parameters are used
+        "experimentalDecorators": true
     },
     "exclude": [
         "node_modules"

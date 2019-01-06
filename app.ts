@@ -1,3 +1,5 @@
+import calculateCircumference = MyMath.Circle.calculateCircumference;
+
 console.log("It works!");
 
 // string
@@ -215,3 +217,163 @@ const greeting = ` This is a heading!
 I'm ${userName}.
 This is cool!`;
 console.log(greeting);
+
+
+// Tuples
+function printInfo1(name: string, age: number) {
+    console.log('My name is ' + name + ' and I am ' + age + ' years old!');
+}
+
+// allowed in typescript 3
+//function printInfo2(...info: [string, number]) {
+ //   console.log('My name is ' + info[0] + ' and I am ' + info[1] + ' years old!');
+//}
+
+
+// Modules and namespaces
+
+
+// namespace
+
+/// <reference path="circleMath.ts" />
+/// <reference path="rectangleMath.ts" />
+
+import CircleMath = MyMath.Circle;
+
+console.log(MyMath.calculateRectangle(10, 20));
+console.log(CircleMath.calculateCircumference(20));
+
+
+// modules
+
+//import { calculateCircumference, PI} from './math/circle';
+import * as Circle from './math/circle';
+
+console.log(Circle.PI);
+console.log(Circle.calculateCircumference(10));
+
+
+// interfaces
+
+interface NamedPerson {
+    firstName: string;
+    age?: number;
+    [propName: string]: any;  // alternative properties where we dont know the type/name in advance
+    greetPerson(lastName: string): void;
+}
+
+function greetPerson(person: NamedPerson) {
+    console.log("Hello, " + person.firstName);
+}
+
+function changeName(person: NamedPerson) {
+    person.firstName = "Michelle";
+}
+
+const person: NamedPerson = {
+    firstName: "Kris",
+    age: 31,
+    hobbies: ["Cooking", "Sports"],
+    greetPerson(lastName: string) {
+        console.log("Hi, I am " + this.firstName + " " + lastName);
+    }
+};
+
+//greetPerson({firstName: "Kris", age: 31});
+changeName(person);
+greetPerson(person);
+person.greetPerson("Anything");
+
+class Person implements NamedPerson {
+    firstName: string;
+    greetPerson(lastName: string): void {
+        console.log("Hi, I am " + this.firstName + " " + lastName);
+    }
+}
+
+const myPerson = new Person();
+myPerson.firstName = "Kristoffer";
+greetPerson(myPerson);
+myPerson.greetPerson("Jensen");
+
+// Function Types
+
+interface DoubleValueFunc {
+    (number1: number, number2: number): number;
+}
+
+let myDoubleFunction: DoubleValueFunc;
+myDoubleFunction = function(value1: number, value2: number) {
+    return (value1 + value2) * 2;
+};
+
+console.log(myDoubleFunction(10, 20));
+
+// Interface inheritance
+
+interface AgedPerson extends NamedPerson {
+    age: number;
+}
+
+const oldPerson: AgedPerson = {
+    age: 40,
+    firstName: "Kris",
+    greetPerson(lastName: string): void {
+        console.log("Hello" );
+    }
+};
+
+
+// Simple generic
+
+function echo(data: any) {
+    return data;
+}
+
+console.log(echo("kris"));
+console.log(echo(31));
+console.log(echo({name: "Kris", age: 31}));
+
+
+// Better generic
+
+function betterEcho<T>(data: T) {
+    return data;
+}
+
+console.log(betterEcho("kris"));
+console.log(betterEcho(31));
+console.log(betterEcho({name: "Kris", age: 31}));
+
+
+// Built-in generics
+const testResults: Array<number> = [1.94, 2.33];
+testResults.push(-2.99);
+//testResults.push("Testing"); // Wont work
+
+
+// Arrays
+function printAll<T>(args: T[]) {
+    args.forEach((element) => console.log(element));
+}
+
+printAll<string>(["Banana", "Apple"]);
+
+// Generic types
+const echo2: <T>(data: T) => T = betterEcho;
+
+console.log(echo2<string>("Something"));
+
+// Generic class
+class SimpleMath<T extends number | string, U extends number | string > {
+    baseValue: T;
+    multiplyValue: U;
+    calculateValue(): number {
+        return +this.baseValue * +this.multiplyValue;
+    }
+}
+
+const simpleMath = new SimpleMath<string, number>();
+simpleMath.baseValue = "10";
+simpleMath.multiplyValue = 20;
+console.log(simpleMath.calculateValue());

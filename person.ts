@@ -76,7 +76,7 @@ abstract class Project {
     abstract changeName(name: string) : void;
 
     calcBudget() {
-        return this.budget * 2:
+        return this.budget * 2;
     }
 }
 
